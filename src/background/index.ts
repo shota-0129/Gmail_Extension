@@ -16,11 +16,7 @@ const resetFreeTier = async () => {
 
 // 拡張機能がインストールされたときに実行されるコード
 chrome.runtime.onInstalled.addListener(function () {
-  // アラームを設定して毎月特定の日時に実行する
-  chrome.alarms.create('monthlyReset', {
-    when: Date.now() + 1000, // 初回の実行を1秒後に設定
-    periodInMinutes: 60 * 24 * 30, // 30日（約1ヶ月）ごとに繰り返し
-  });
+  resetFreeTier();
 });
 
 // アラームが発生したときの処理
