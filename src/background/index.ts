@@ -1,19 +1,33 @@
 import browser from 'webextension-polyfill';
 
-import store from '../app/store';
+import { bucket, MailOption } from '../myBucket';
 import { isDev } from '../shared/utils';
 
-store.subscribe(() => {
-  console.log('state', store.getState());
+// 無料枠をリセット
+const resetFreeTier = async () => {
+  const mybucket = await bucket.get();
+  const mail: MailOption = {
+    ...mybucket.mail,
+    freeTier: 10,
+  };
+  const now = new Date();
+  await bucket.set({ mail: mail, updated_at: now });
+};
+
+// 拡張機能がインストールされたときに実行されるコード
+chrome.runtime.onInstalled.addListener(function () {
+  // アラームを設定して毎月特定の日時に実行する
+  chrome.alarms.create('monthlyReset', {
+    when: Date.now() + 1000, // 初回の実行を1秒後に設定
+    periodInMinutes: 60 * 24 * 30, // 30日（約1ヶ月）ごとに繰り返し
+  });
 });
 
-// // show welcome page on new install
-// browser.runtime.onInstalled.addListener(async (details) => {
-//   if (details.reason === 'install') {
-//     //show the welcome page
-//     const url = browser.runtime.getURL(isDev ? 'src/welcome/welcome.html' : 'welcome.html'); // TODO: better approach
-//     await browser.tabs.create({ url });
-//   }
-// });
+// アラームが発生したときの処理
+chrome.alarms.onAlarm.addListener(function (alarm) {
+  if (alarm.name === 'monthlyReset') {
+    resetFreeTier();
+  }
+});
 
 export {};
