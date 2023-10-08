@@ -24,6 +24,7 @@ import { newMail } from './mail/newMail';
 import { convertErrorMessage } from './convertErrorMessage';
 // import { AiOutlineMail } from 'react-icons/ai';
 import Endicon from './Endicon';
+import ModalMail from './ModalMail';
 
 import styles from './Main.module.css';
 
@@ -41,6 +42,7 @@ export function Main() {
     language: 'Japanese',
   });
   const [freeTier, setfreeTier] = useState(0);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   /**
    * 無料枠の取得
@@ -97,8 +99,9 @@ export function Main() {
       }
       textelement.insertAdjacentHTML('afterbegin', body);
     } else {
-      alert(convertErrorMessage('ImportERROR'));
-      return;
+      console.log('openModal');
+      // モーダルを開く
+      openModal();
     }
 
     if (!isChargeMode) {
@@ -110,6 +113,16 @@ export function Main() {
       await bucket.set({ mail: mail });
       setfreeTier(mybucket.mail.freeTier - 1);
     }
+  };
+
+  // モーダルを開く関数
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  // モーダルを閉じる関数
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -201,6 +214,7 @@ export function Main() {
           </div>
         </AccordionDetails>
       </Accordion>
+      {isModalOpen && <ModalMail returnText={texts.returnText} onClose={closeModal} />}
     </Box>
   );
 }

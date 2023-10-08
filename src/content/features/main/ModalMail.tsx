@@ -6,11 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { truncate } from 'fs-extra';
-
-import { bucket } from '../../../myBucket';
-
-import { returnMail } from './mail/returnMail';
 
 const style = {
   position: 'absolute' as const,
@@ -26,20 +21,13 @@ const style = {
 
 export const ModalMail = (props: any) => {
   const [open, setOpen] = useState(true);
-  const [returnText, setText] = useState('完成するまで少々お待ちください....');
-
-  useEffect(() => {
-    const connectGPT = async () => {
-      console.log(props.requestText);
-      const mybucket = await bucket.get();
-      const apikey = mybucket.mail.apikey.toString();
-      // const text = await returnMail(apikey, props.requestText);
-    };
-    connectGPT();
-  }, []);
+  const returnText = props.returnText.replace(/<br>/g, '\n');
 
   const handleClose = () => {
-    setOpen(false);
+    // 親コンポーネントのモーダルステートを変更する
+    if (props.onClose) {
+      props.onClose();
+    }
   };
 
   //クリップボードにコピー関数
@@ -57,7 +45,7 @@ export const ModalMail = (props: any) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            返信草案
+            How about the following body?
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Textarea
@@ -71,7 +59,7 @@ export const ModalMail = (props: any) => {
           </Typography>
           <Stack direction="row" justifyContent="flex-end">
             <IconButton color="primary" size="small" onClick={() => copyToClipboard()}>
-              コピーする
+              Copy
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Stack>

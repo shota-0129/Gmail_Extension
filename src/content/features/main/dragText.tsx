@@ -27,12 +27,14 @@ const style = {
 
 export const ShowMail = () => {
   const [requestText, setText] = useState('');
+  const [returnText, setReturnText] = useState('');
   const [button, setButton] = useState({
     display: 'none',
     top: 0,
     left: 0,
   });
   const [isUseful, setUseful] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // const [isModalOpen, setModalOpen] = useState(false);
 
@@ -103,9 +105,10 @@ export const ShowMail = () => {
     if (textelement != null) {
       textelement.insertAdjacentHTML('afterbegin', body);
     } else {
-      alert(convertErrorMessage('ImportERROR'));
-      setUseful(true);
-      return;
+      setReturnText(body);
+      console.log('openModal');
+      // モーダルを開く
+      openModal();
     }
 
     if (!isChargeMode) {
@@ -117,6 +120,16 @@ export const ShowMail = () => {
     }
 
     setUseful(true);
+  };
+
+  // モーダルを開く関数
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  // モーダルを閉じる関数
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -142,7 +155,7 @@ export const ShowMail = () => {
           Reply
         </Button>
       </Box>
-      {/* {isModalOpen && <ModalMail requestText={requestText} />} */}
+      {isModalOpen && <ModalMail returnText={returnText} onClose={closeModal} />}
     </>
   );
 };
