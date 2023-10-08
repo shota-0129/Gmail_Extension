@@ -130,66 +130,66 @@ const Options = (): React.ReactElement => {
 
   function displayUser() {
     return (
-      <Stack sx={{ width: '300px' }} justifyContent="center">
-        <Box sx={{ my: 2, fontSize: '20px' }}>
-          Optional settings
-          <br />
-          This improves the accuracy of replies, etc.
-        </Box>
-        <Box sx={{ mt: 2, fontSize: '16px' }}>What name do you want to appear in the email?</Box>
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          variant="outlined"
-          value={users.name}
-          onChange={handleUsernameChange}
-          sx={{ mt: 1, width: 300 }}
-          size="medium"
-        />
-        <Box sx={{ mt: 2, fontSize: '16px' }}>
-          Please tell us which company/university to display
-        </Box>
-        <TextField
-          id="outlined-basic"
-          label="Company/University"
-          variant="outlined"
-          value={users.company}
-          onChange={handleCompanyChange}
-          sx={{ mt: 1, width: 300 }}
-          size="medium"
-        />
-        <Box sx={{ mt: 2, fontSize: '16px' }}>What position/faculty do you want to display?</Box>
-        <TextField
-          id="outlined-basic"
-          label="Department of 〇〇 / 〇〇 Division"
-          variant="outlined"
-          value={users.position}
-          onChange={handlePositionChange}
-          sx={{ mt: 1, width: 300 }}
-          size="medium"
-        />
-        <Stack direction="row" justifyContent="center">
-          <Button
-            variant="contained"
-            onClick={saveUser}
-            startIcon={<SaveIcon />}
+      <Box sx={{ my: 2, fontSize: '20px' }} justifyContent="center">
+        Optional settings
+        <br />
+        This improves the accuracy of replies, etc.
+        <Stack sx={{ width: '300px' }} justifyContent="center">
+          <Box sx={{ mt: 2, fontSize: '16px' }}>What name do you want to appear in the email?</Box>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            value={users.name}
+            onChange={handleUsernameChange}
+            sx={{ mt: 1, width: 300 }}
             size="medium"
-            sx={{ mt: 2, mr: 2 }}
-          >
-            Save
-          </Button>
-          <Button
-            variant="contained"
-            color="inherit"
-            onClick={deleteUser}
-            startIcon={<DeleteIcon />}
+          />
+          <Box sx={{ mt: 2, fontSize: '16px' }}>
+            Please tell us which company/university to display
+          </Box>
+          <TextField
+            id="outlined-basic"
+            label="Company/University"
+            variant="outlined"
+            value={users.company}
+            onChange={handleCompanyChange}
+            sx={{ mt: 1, width: 300 }}
             size="medium"
-            sx={{ mt: 2 }}
-          >
-            Delete
-          </Button>
+          />
+          <Box sx={{ mt: 2, fontSize: '16px' }}>What position/faculty do you want to display?</Box>
+          <TextField
+            id="outlined-basic"
+            label="Department of 〇〇 / 〇〇 Division"
+            variant="outlined"
+            value={users.position}
+            onChange={handlePositionChange}
+            sx={{ mt: 1, width: 300 }}
+            size="medium"
+          />
+          <Stack direction="row" justifyContent="center">
+            <Button
+              variant="contained"
+              onClick={saveUser}
+              startIcon={<SaveIcon />}
+              size="medium"
+              sx={{ mt: 2, mr: 2 }}
+            >
+              Save
+            </Button>
+            <Button
+              variant="contained"
+              color="inherit"
+              onClick={deleteUser}
+              startIcon={<DeleteIcon />}
+              size="medium"
+              sx={{ mt: 2 }}
+            >
+              Delete
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
+      </Box>
     );
   }
   return <div style={{ display: 'flex', justifyContent: 'center' }}>{displayUser()}</div>;

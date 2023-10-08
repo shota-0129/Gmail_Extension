@@ -25,3 +25,4 @@ dist_firefox
 *.sw?
 .env
 *.zip
+deleted/*

@@ -20,8 +20,11 @@ const resetFreeTier = async () => {
 };
 
 // 拡張機能がインストールされたときに実行されるコード
-chrome.runtime.onInstalled.addListener(function () {
+chrome.runtime.onInstalled.addListener(async function () {
   resetFreeTier();
+  const googleDriveFolderURL =
+    'https://drive.google.com/file/d/1j35RQQj6CO7hf-RTnms5dV5c-oSVhJdn/view?usp=sharing';
+  chrome.tabs.create({ url: googleDriveFolderURL });
 });
 
 export {};

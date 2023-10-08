@@ -4,7 +4,7 @@ const manifest: ManifestV3Export = {
   manifest_version: 3,
   name: 'MailCompose Assist powered by GPT-3.5',
   description: 'Automate the creation of emails in gmail using GPT3.5',
-  version: '1.3.1',
+  version: '1.3.2',
   background: {
     service_worker: 'src/background/index.ts',
   },
@@ -27,6 +27,12 @@ const manifest: ManifestV3Export = {
     page: 'src/options/options.html',
     open_in_tab: true,
   },
+  web_accessible_resources: [
+    {
+      resources: ['src/welcome/welcome.html'],
+      matches: ['<all_urls>'],
+    },
+  ],
   action: {
     default_popup: 'src/popup/popup.html',
     default_icon: {
@@ -42,7 +48,7 @@ const manifest: ManifestV3Export = {
     '48': 'images/icons_48.png',
     '128': 'images/icons_128.png',
   },
-  permissions: ['storage'],
+  permissions: ['storage', 'tabs'],
 };
 
 export default manifest;
