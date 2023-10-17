@@ -21,6 +21,7 @@ export interface MyBucket {
   user: UserInformation;
   mail: MailOption;
   updated: Date;
+  is_installed: boolean;
 }
 
 export const bucket = getBucket<MyBucket>('my_bucket', 'sync');

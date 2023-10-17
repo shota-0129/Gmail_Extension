@@ -4,7 +4,7 @@ const manifest: ManifestV3Export = {
   manifest_version: 3,
   name: 'MailCompose Assist powered by GPT-3.5',
   description: 'Automate the creation of emails in gmail using GPT3.5',
-  version: '1.3.2',
+  version: '1.3.3.1',
   background: {
     service_worker: 'src/background/index.ts',
   },
